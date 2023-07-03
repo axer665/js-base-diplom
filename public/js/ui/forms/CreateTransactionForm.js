@@ -9,6 +9,7 @@ class CreateTransactionForm extends AsyncForm {
    * */
   constructor(element) {
     super(element)
+    this.renderAccountsList();
   }
 
   /**
@@ -16,7 +17,32 @@ class CreateTransactionForm extends AsyncForm {
    * Обновляет в форме всплывающего окна выпадающий список
    * */
   renderAccountsList() {
+    const current = User.current();
+    Account.list(current, (err, response) => {
+      if (response.success) {
+        const selectIncome = this.element.querySelector("#income-accounts-list");
+        const selectExpense = this.element.querySelector("#expense-accounts-list");
+        if (selectIncome) {
+          selectIncome.textContent="";
+          response.data.forEach(item => {
+            let option = document.createElement("option");
+            option.value = item.id;
+            option.textContent = item.name;
+            selectIncome.append(option);
+          });
+        } else if (selectExpense) {
+          selectExpense.textContent="";
+          response.data.forEach(item => {
+            let option = document.createElement("option");
+            option.value = item.id;
+            option.textContent = item.name;
+            selectExpense.append(option);
+          });
+        }
 
+
+      }
+    })
   }
 
   /**
@@ -26,6 +52,22 @@ class CreateTransactionForm extends AsyncForm {
    * в котором находится форма
    * */
   onSubmit(data) {
+    Transaction.create(data, (err, response) => {
+      if (response.success) {
+        App.getModal( 'newIncome' ).close();
+        App.getModal( 'newExpense' ).close();
+        const selectIncome = this.element.querySelector("#income-accounts-list");
+        const selectExpense = this.element.querySelector("#expense-accounts-list");
+        
+        if (selectIncome){
+          selectIncome.textContent = "";
+        }
+        if (selectExpense) {
+          selectExpense.textContent = "";
+        }
 
+        App.update();
+      }
+    })
   }
 }
