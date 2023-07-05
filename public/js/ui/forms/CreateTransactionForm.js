@@ -19,29 +19,12 @@ class CreateTransactionForm extends AsyncForm {
   renderAccountsList() {
     const current = User.current();
     Account.list(current, (err, response) => {
-      if (response.success) {
-        const selectIncome = this.element.querySelector("#income-accounts-list");
-        const selectExpense = this.element.querySelector("#expense-accounts-list");
-        if (selectIncome) {
-          selectIncome.textContent="";
-          response.data.forEach(item => {
-            let option = document.createElement("option");
-            option.value = item.id;
-            option.textContent = item.name;
-            selectIncome.append(option);
-          });
-        } else if (selectExpense) {
-          selectExpense.textContent="";
-          response.data.forEach(item => {
-            let option = document.createElement("option");
-            option.value = item.id;
-            option.textContent = item.name;
-            selectExpense.append(option);
-          });
-        }
+      const select = this.element.querySelector(".accounts-select");
 
-
-      }
+      select.innerHTML = response.data.reduce((accumulator, current) => {
+        accumulator += `<option value="${current.id}"> ${current.name} </option>`;
+        return accumulator;
+      }, "");
     })
   }
 
@@ -53,6 +36,8 @@ class CreateTransactionForm extends AsyncForm {
    * */
   onSubmit(data) {
     Transaction.create(data, (err, response) => {
+      console.log(response);
+      console.log(data)
       if (response.success) {
         App.getModal( 'newIncome' ).close();
         App.getModal( 'newExpense' ).close();
@@ -68,6 +53,8 @@ class CreateTransactionForm extends AsyncForm {
 
         App.update();
       }
-    })
+    });
+
+    this.element.reset();
   }
 }

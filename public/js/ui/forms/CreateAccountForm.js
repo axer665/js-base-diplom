@@ -15,5 +15,6 @@ class CreateAccountForm extends AsyncForm {
         App.update();
       }
     })
+    this.element.reset();
   }
 }

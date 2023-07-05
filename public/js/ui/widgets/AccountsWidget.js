@@ -33,8 +33,20 @@ class AccountsWidget {
   registerEvents() {
     const createButton = this.element.querySelector(".create-account");
     createButton.addEventListener("click", () => {
-      const modal = App.getModal( 'createAccount' ).open();
-    })
+      App.getModal( 'createAccount' ).open();
+    });
+
+    this.element.addEventListener("click", (event) => {
+      // убираем переход по ссылке, если элемент - ссылка
+      event.target.removeAttribute("href"); 
+      // ищем в DOM-дереве нужного родителя
+      const account = event.target.closest(".account");
+
+      if (account) {
+        this.onSelectAccount(account);
+      }
+      
+    });
   }
 
   /**
@@ -105,24 +117,12 @@ class AccountsWidget {
     const itemHTML = document.createElement("li");
     itemHTML.className = "account";
     itemHTML.setAttribute("data-id", item.id);
-
-    const itemLink = document.createElement("a");
-    itemLink.setAttribute("href", "#");
-
-    const itemName = document.createElement("span");
-    itemName.textContent = item.name + " / ";
-
-    const itemSum = document.createElement("span");
-    itemSum.textContent = item.sum + "₽";
-
-    itemLink.append(itemName);
-    itemLink.append(itemSum);
-    itemHTML.append(itemLink);
-
-    itemHTML.addEventListener("click", () => {
-      itemLink.removeAttribute("href"); 
-      this.onSelectAccount(itemHTML);
-    })
+    itemHTML.innerHTML = `
+      <a href="#">
+        <span>${item.name}</span> /
+        <span>${item.sum} ₽</span>
+      </a>
+    `;
     
     widget.append(itemHTML);
   }

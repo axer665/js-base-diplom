@@ -71,11 +71,6 @@
       "id": "g2pcb3y0lj77jgg6"
     },
     {
-      "name": "счет 3",
-      "user_id": "g2pcb1vklj73qfg9",
-      "id": "1qukppq83wljabvnck"
-    },
-    {
       "name": "test14",
       "user_id": "g2pcb1vklj73qfg9",
       "id": "g2pcp7ecljce20sn"
@@ -299,6 +294,60 @@
       "account_id": "g2pc27rwljgzqo9b",
       "user_id": "g2pc26ykljgzpafy",
       "created_at": "2023-06-29T10:17:18.626Z"
+    },
+    {
+      "id": "g2pc24v4ljnts3r5",
+      "type": "income",
+      "name": "sdvfsv",
+      "sum": 34,
+      "account_id": "g2pcb3y0lj77jgg6",
+      "user_id": "g2pcb1vklj73qfg9",
+      "created_at": "2023-07-04T05:04:12.544Z"
+    },
+    {
+      "id": "g2pc25ckljntsu2w",
+      "type": "expense",
+      "name": "sdfs",
+      "sum": 23,
+      "account_id": "g2pcb3y0lj77jgg6",
+      "user_id": "g2pcb1vklj73qfg9",
+      "created_at": "2023-07-04T05:04:46.663Z"
+    },
+    {
+      "id": "g2pc28k4ljnzsvqn",
+      "type": "income",
+      "name": "regerg",
+      "sum": 12,
+      "account_id": "g2pcb3y0lj77jgg6",
+      "user_id": "g2pcb1vklj73qfg9",
+      "created_at": "2023-07-04T07:52:46.510Z"
+    },
+    {
+      "id": "g2pc28ykljo0opjf",
+      "type": "income",
+      "name": "123",
+      "sum": 123,
+      "account_id": "g2pcp7ecljce20sn",
+      "user_id": "g2pcb1vklj73qfg9",
+      "created_at": "2023-07-04T08:17:31.466Z"
+    },
+    {
+      "id": "g2pc2dkljpf9bov",
+      "type": "expense",
+      "name": "minus50",
+      "sum": 50,
+      "account_id": "g2pc225sljmg0ezd",
+      "user_id": "g2pc26foljlf6ru3",
+      "created_at": "2023-07-05T07:53:14.094Z"
+    },
+    {
+      "id": "g2pc21x0ljpfm3cv",
+      "type": "income",
+      "name": "plus25",
+      "sum": 25,
+      "account_id": "g2pc225sljmg0ezd",
+      "user_id": "g2pc26foljlf6ru3",
+      "created_at": "2023-07-05T08:03:09.822Z"
     }
   ]
 }

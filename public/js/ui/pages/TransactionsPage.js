@@ -36,10 +36,15 @@ class TransactionsPage {
    * */
   registerEvents() {
     const remove = this.element.querySelector(".remove-account");
-
     remove.addEventListener("click", (e) => {
       this.removeAccount(remove.dataset.id);
-    })
+    });
+
+    this.element.addEventListener("click", (event) => {
+      if (event.target.classList.contains("transaction__remove")) {
+        this.removeTransaction(event.target.dataset.id);
+      }
+    });
   }
 
   /**
@@ -158,47 +163,31 @@ class TransactionsPage {
   getTransactionHTML(item){
     
     const transactionContainer = this.element.querySelector(".content")
+    const transaction = `
+      <div class="transaction transaction_${item.type} row">
+        <div class="col-md-7 transaction__details">
+          <div class="transaction__icon">
+              <span class="fa fa-money fa-2x"></span>
+          </div>
+          <div class="transaction__info">
+              <h4 class="transaction__title">${item.name}</h4>
+              <div class="transaction__date">${this.formatDate(item.created_at)}</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="transaction__summ">
+              ${item.sum} <span class="currency">₽</span>
+          </div>
+        </div>
+        <div class="col-md-2 transaction__controls">
 
-    const transaction = document.createElement("div");
-    transaction.className = "transaction transaction_"+ item.type +" row";
-
-    const transactionDetail = document.createElement("div");
-    transactionDetail.className = "col-md-7 transaction__details";
-
-    const transitionIcon = document.createElement("div");
-    transitionIcon.className = "transaction__icon";
-    transitionIcon.innerHTML = '<span class="fa fa-money fa-2x"></span>';
-
-    const transactionInfo = document.createElement("div");
-    transactionInfo.className = "transaction__info";
-    transactionInfo.innerHTML = '<h4 class="transaction__title">'+item.name+'</h4>'+       
-      '<div class="transaction__date">'+ this.formatDate(item.created_at) + '</div>';
-
-    const transactionSum = document.createElement("div");
-    transactionSum.className = "col-md-3";
-    transactionSum.innerHTML = '<div class="transaction__summ">'+ item.sum + '<span class="currency">₽</span>' +'</div>';
-
-    const transactionControl = document.createElement("div");
-      transactionControl.className = "col-md-2 transaction__controls";
-      
-    const transactionRemove = document.createElement("button");
-    transactionRemove.className = "btn btn-danger transaction__remove";
-    transactionRemove.setAttribute("data-id", item.id);
-    transactionRemove.innerHTML = '<i class="fa fa-trash"></i>';
-    transactionRemove.addEventListener("click", () => {
-      this.removeTransaction(item.id);
-    });
-
-    transactionDetail.append(transitionIcon);
-    transactionDetail.append(transactionInfo);
-    transactionControl.append(transactionRemove);
-
-    transaction.append(transactionDetail);
-    transaction.append(transactionSum);
-    transaction.append(transactionControl);
-    
-    
-    transactionContainer.append(transaction);
+            <button class="btn btn-danger transaction__remove" data-id="${item.id}">
+                <i class="fa fa-trash"></i>  
+            </button>
+        </div>
+      </div>
+    `;
+    transactionContainer.innerHTML += transaction;
   }
 
   /**
